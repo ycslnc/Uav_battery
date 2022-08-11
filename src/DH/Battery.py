@@ -15,8 +15,8 @@ class Battery:
         self.params = params
         self.position = params.position  # fixed position can be later overwritten in reset
         self.color = params.color
-        self.charged_time = 0.1
-        self.battery_flag = 0
+        self.charged_time = 1
+
     def charge_time(self):
         return self.charged_time
 
