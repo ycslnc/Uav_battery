@@ -4,7 +4,7 @@ from src.DH.Battery import BatteryParams, BatteryList
 
 ColorMap = ["forestgreen", "lightgreen", "darkgreen", "lime", "lightgreen", "purple"]
 
-# "blue", "orange", "green", "red",
+# "blue", "orange", "green", "red",  各种颜色
 
 
 class BatteryManagerParams:
