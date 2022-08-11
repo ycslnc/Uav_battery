@@ -32,6 +32,7 @@ class BatteryList:
         for battery in self.batterys:
             battery_map[battery.position[1], battery.position[0]] = battery.charged_time
         return battery_map
+        # 含有每个充电桩冲了多少电的信息
 
     def get_batterys(self):
         return self.batterys
