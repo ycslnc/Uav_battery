@@ -24,10 +24,10 @@
         },
         "battery_manager": {
             "battery_count_range": [
-                4,
-                6
+                2,
+                4
             ],
-            "fixed_batterys": true,
+            "fixed_batterys": false,
 
             "devices": [
                 [4, 1],
