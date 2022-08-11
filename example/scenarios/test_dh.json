@@ -1,0 +1,6 @@
+{
+  "device_idcs": [11,35, 23],
+  "device_data": [3, 5,2],
+  "position_idx": 1,
+  "movement_budget": 100
+}

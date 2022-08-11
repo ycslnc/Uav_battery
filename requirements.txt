@@ -1,0 +1,5 @@
+keras==2.4.3 
+tensorflow-gpu==2.5.0 
+matplotlib==3.3.0 
+scikit-image==0.16.2 
+tqdm==4.45.0 
