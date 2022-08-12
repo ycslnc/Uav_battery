@@ -48,7 +48,7 @@ class DHPhysics(GridPhysics):
             self.comm_step(old_position)
             # 计算数据收集
             # NOTE 添加充电step
-            self.battery_step()
+            # self.battery_step()
 
         return self.state
 

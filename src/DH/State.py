@@ -83,9 +83,10 @@ class DHState(BaseState):
 
         # NOTE 在boolean_map中添加了一维充电桩可防止位置的地图
         #  0维是禁飞区，1维是障碍物区，2维是起降区，3维是充电区
-        padded_battery = pad_centered(self, np.expand_dims(self.battery_zone, -1), 0)
+        # padded_battery = pad_centered(self, np.expand_dims(self.battery_zone, -1), 0)
+        # return np.concatenate([padded_red, padded_rest, padded_battery], axis=-1)
 
-        return np.concatenate([padded_red, padded_rest, padded_battery], axis=-1)
+        return np.concatenate([padded_red, padded_rest], axis=-1)
 
     def get_boolean_map_shape(self):
         return self.get_boolean_map().shape
@@ -100,9 +101,7 @@ class DHState(BaseState):
         # c = pad_centered(self,
         #                  np.concatenate([np.expand_dims(self.device_map, -1), np.expand_dims(self.battery_map, -1)],
         #                                 axis=-1), 0)
-        return pad_centered(self,
-                            np.concatenate([np.expand_dims(self.device_map, -1), np.expand_dims(self.battery_map, -1)],
-                                           axis=-1), 0)
+        return pad_centered(self, np.expand_dims(self.device_map, -1), 0)
 
     def get_float_map_shape(self):
         return self.get_float_map().shape

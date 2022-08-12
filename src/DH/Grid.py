@@ -23,7 +23,7 @@ class DHGrid(BaseGrid):
         self.device_manager = DeviceManager(self.params.device_manager)
         # NOTE 添加充电桩相关列表
         self.battery_list = None
-        self.battery_manager = BatteryManager(self.params.battery_manager)
+        # self.battery_manager = BatteryManager(self.params.battery_manager)
 
         free_space = np.logical_not(
             np.logical_or(self.map_image.obstacles, self.map_image.start_land_zone))
@@ -58,7 +58,7 @@ class DHGrid(BaseGrid):
         #  剩余电量（理论上是无穷），可以再记录一下冲了多少电  充电桩的类
         #  NOTE 返回battery_list
 
-        self.battery_list = self.battery_manager.generate_device_list(self.battery_positions)
+        # self.battery_list = self.battery_manager.generate_device_list(self.battery_positions)
         # print("battery_list.num_devices", self.battery_list.num_devices)
         state = DHState(self.map_image)
         # DHState 包含 地图信息、设备信息、智能体位置、移动步数预算（即电量）
@@ -66,7 +66,7 @@ class DHGrid(BaseGrid):
         state.reset_devices(self.device_list)
         # 重置设备数据图、已收集数据、设备列表
         # NOTE reset battery
-        state.reset_batterys(self.battery_list)
+        # state.reset_batterys(self.battery_list)
         # Replace False 确保代理的起始位置不同
         # Replace False insures that starting positions of the agents are different
 
@@ -85,7 +85,8 @@ class DHGrid(BaseGrid):
     def create_scenario(self, scenario: DHScenario):
         state = DHState(self.map_image)
         # 起始飞机的位置
-        state.position = self.starting_vector[scenario.position_idx]
+        # NOTE idcs
+        state.position = self.starting_vector[scenario.position_idcs]
         # 起始电量
         state.movement_budget = scenario.movement_budget
         # 起始电量为具体场景中电量
@@ -96,9 +97,9 @@ class DHGrid(BaseGrid):
                                                                                scenario.device_data))
 
         # NOTE 添加battery相关信息
-        battery_positions = [self.battery_positions[idx] for idx in scenario.battery_idcs]
-        state.reset_batterys(self.battery_manager.generate_battery_list_from_args(len(battery_positions),
-                                                                                  battery_positions))
+        # battery_positions = [self.battery_positions[idx] for idx in scenario.battery_idcs]
+        # state.reset_batterys(self.battery_manager.generate_battery_list_from_args(len(battery_positions),
+        #                                                                           battery_positions))
 
         return state
 

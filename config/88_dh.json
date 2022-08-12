@@ -21,13 +21,6 @@
                 20.0
             ],
             "fixed_devices": false
-        },
-        "battery_manager": {
-            "battery_count_range": [
-                1,
-                2
-            ],
-            "fixed_batterys": false
         }
     },
     "reward_params": {

@@ -51,12 +51,12 @@ def scenario(args, params):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', default='models/train_dh_battery_4_best', required=False, help='Path to weights')
-    parser.add_argument('--config', default='config/88_dh_battery.json', required=False, help='Config file for agent '
+    parser.add_argument('--weights', default='models/train_dh_new_battery5_best', required=False, help='Path to weights')
+    parser.add_argument('--config', default='config/88_dh.json', required=False, help='Config file for agent '
                                                                                              'shaping')
-    parser.add_argument('--scenario', default='example/scenarios/88_dh_battery.json', help='Config file for scenario')
+    parser.add_argument('--scenario', default='example/scenarios/88_dh.json', help='Config file for scenario')
     parser.add_argument('--seed', default=None, help="Seed for repeatability")
-    parser.add_argument('--video', default=True, action='store_true', help="Will ask to create video after plotting")
+    parser.add_argument('--video', default=False, action='store_true', help="Will ask to create video after plotting")
     parser.add_argument('--params', nargs='*', default=None)
 
     # DH Params

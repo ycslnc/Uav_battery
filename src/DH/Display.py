@@ -59,10 +59,10 @@ class DHDisplay(BaseDisplay):
                 patches.Circle(np.array(device.position) + np.array((0.5, 0.5)), 0.4, facecolor=device.color,
                                edgecolor="black"))
 
-        for battery in first_state.battery_list.get_batterys():
-            ax_traj.add_patch(
-                patches.Ellipse(np.array(battery.position) + np.array((0.5, 0.5)), 0.4, 0.3, facecolor=battery.color,
-                                edgecolor="black"))
+        # for battery in first_state.battery_list.get_batterys():
+        #     ax_traj.add_patch(
+        #         patches.Ellipse(np.array(battery.position) + np.array((0.5, 0.5)), 0.4, 0.3, facecolor=battery.color,
+        #                         edgecolor="black"))
 
         self.draw_start_and_end(trajectory)
 
