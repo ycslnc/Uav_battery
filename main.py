@@ -32,8 +32,7 @@ if __name__ == "__main__":
     parser.add_argument('--gpu', default=False, action='store_true', help='Activates usage of GPU')
     parser.add_argument('--generate_config', action='store_true', help='Enable to write default config only')
     parser.add_argument('--config', default='./config/88_dh_battery.json', help='Path to config file')
-    parser.add_argument('--id', default='train_dh_new_battery4', help='If set overrides the logfile name and the save '
-                                                                      'name')
+    parser.add_argument('--id', default='train_dh_new_battery2', help='If set overrides the logfile name and the save name')
     parser.add_argument('--params', nargs='*', default=None)
     parser.add_argument('--cpp', action='store_true', help='Run Coverage Path Planning')
     parser.add_argument('--dh', default=True, action='store_true', help='Run Path Planning for Data Harvesting')
