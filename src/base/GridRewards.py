@@ -23,16 +23,20 @@ class GridRewards:
         if not next_state.landed:
             # Penalize battery Consumption
             reward -= self.params.movement_penalty
-
+        # NOTE reward 把悬停的惩罚项去掉，因为充电需要悬停
         # Penalize not moving (This happens when it either tries to land or fly into a boundary or hovers or fly into
         # a cell occupied by another agent)
         if state.position == next_state.position and not next_state.landed and not action == GridActions.HOVER:
             reward -= self.params.boundary_penalty
 
+        # if not next_state.landed and not action == GridActions.HOVER:
+        #     reward -= self.params.boundary_penalty
+
         # Penalize battery dead
         if next_state.movement_budget == 0 and not next_state.landed:
             reward -= self.params.empty_battery_penalty
 
+        # TODO 如果电量比例低于一定值  做出一点改变
         return reward
 
     def reset(self):

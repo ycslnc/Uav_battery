@@ -73,6 +73,7 @@ class DHState(BaseState):
         return np.array([self.movement_budget])
 
     def get_num_scalars(self):
+        # NOTE 添加一个此时刻电量变化的标量
         return 1
 
     def get_boolean_map(self):
