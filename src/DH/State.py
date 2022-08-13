@@ -112,7 +112,7 @@ class DHState(BaseState):
         return self.landing_zone[self.position[1]][self.position[0]]
 
     # NOTE 增加判断是非在充电区域的函数
-    #  还要改一下，因为充电区域中的充电桩位置时不一定的
+    #  还要改一下，因为充电区域中的充电桩位置是不一定的
     def is_in_battery_zone(self):
         if 0 <= self.position[1] < self.no_fly_zone.shape[0] and 0 <= self.position[0] < self.no_fly_zone.shape[1]:
             return self.battery_zone[self.position[1], self.position[0]]

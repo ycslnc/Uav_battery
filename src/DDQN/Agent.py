@@ -64,7 +64,7 @@ class DDQNAgent(object):
         states = [boolean_map_input,
                   float_map_input,
                   scalars_input]
-        # 环境地图+设备地图+飞行时间
+        # 环境地图+设备地图+电量
         map_cast = tf.cast(boolean_map_input, dtype=tf.float32)
         # 将x的数据格式转化成dtype数据类型.例如，原来x的数据格式是bool，
         # 将其转化成float以后，就能够将其转化成0和1的序列。
