@@ -52,4 +52,5 @@ class GridPhysics:
     def reset(self, state):
         self.landing_attempts = 0
         self.boundary_counter = 0
+        self.charge_time = 0
         self.state = state
