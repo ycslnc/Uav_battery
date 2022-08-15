@@ -113,5 +113,4 @@ class DHGrid(BaseGrid):
         state.device_map = np.zeros(self.shape, dtype=float) * 2
         state.collected = np.zeros(self.shape, dtype=float)
         state.battery_map = np.zeros(self.shape, dtype=float)
-        state.charged = np.zeros(self.shape, dtype=float)
         return state
