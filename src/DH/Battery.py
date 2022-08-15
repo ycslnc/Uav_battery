@@ -9,7 +9,6 @@ class BatteryParams:
 
 class Battery:
     charged_time: float
-    battery_flag: bool
 
     def __init__(self, params: BatteryParams):
         self.params = params
