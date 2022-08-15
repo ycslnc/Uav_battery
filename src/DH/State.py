@@ -52,7 +52,7 @@ class DHState(BaseState):
 
     # NOTE  充电
     def increase_movement_budget(self):
-        self.movement_budget += 10
+        self.movement_budget += 4
 
     def set_terminal(self, terminal):
         self.terminal = terminal
