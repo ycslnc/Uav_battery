@@ -138,6 +138,5 @@ class DHPhysics(GridPhysics):
         return self.state.landed
 
     # NOTE 增加查询的函数
-    def get_charged_time(self, state:DHState):
+    def get_charged_time(self, state: DHState):
         return state.charged
-
