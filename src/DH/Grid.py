@@ -104,7 +104,7 @@ class DHGrid(BaseGrid):
 
     def init_scenario(self, state: DHState):
         self.device_list = state.device_list
-
+        self.battery_list = state.battery_list
         return state
 
     def get_example_state(self):
