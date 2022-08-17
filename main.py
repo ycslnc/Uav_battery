@@ -38,6 +38,7 @@ if __name__ == "__main__":
     parser.add_argument('--dh', default=True, action='store_true', help='Run Path Planning for Data Harvesting')
     parser.add_argument('--multi', action='store_true', help='Run Path Planning for Multi (So far only DH)')
 
+    parser.add_argument('--battery')
     args = parser.parse_args()
 
     if args.generate_config:
