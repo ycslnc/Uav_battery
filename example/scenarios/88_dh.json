@@ -2,5 +2,5 @@
   "device_idcs": [19, 23, 44],
   "device_data": [5, 15, 20],
   "position_idcs": 1,
-  "movement_budget": 40
+  "movement_budget": 20
 }
