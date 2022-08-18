@@ -25,6 +25,8 @@ class DHPhysics(GridPhysics):
 
         self.register_functions(stats)
 
+        self.num_step = 0
+
     def register_functions(self, stats: ModelStats):
         stats.set_evaluation_value_callback(self.get_cral)
 
@@ -41,9 +43,9 @@ class DHPhysics(GridPhysics):
         self.channel.reset(self.state.shape[0])
 
     def step(self, action: GridActions):
-
         old_position = self.state.position
         self.movement_step(action)
+        self.num_step += 1
         if not self.state.terminal:
             self.comm_step(old_position)
             # 计算数据收集
@@ -103,6 +105,7 @@ class DHPhysics(GridPhysics):
         # NOTE 判断是否在充电区域，在充电区域的话，再计算具体冲了多少电, 要放在修改已充电时间后面
 
         self.state.set_terminal(self.charge_time >= 20)
+
 
     def get_example_action(self):
         return GridActions.HOVER
