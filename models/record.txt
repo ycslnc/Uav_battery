@@ -1,0 +1,11 @@
+dh_100 是开始电量在10~100 average_len = 100 训练2e6次 不加充电桩
+dh_battery 是开始电量在10~100 average_len = 100 训练2e6次 增加充电桩  充电桩位置随机，同时battery_map的值会随充电时长变化
+dh_battery_充电时battery_map不变化 是开始电量在10~60 average_len = 80  训练4e5次 增加充电桩 充电桩位置固定，battery_map不变
+
+
+变量        充电桩位置   battery_map是否变化    是否学到充电的操作
+dh_100        /               /                    /
+dh_battery   随机              是                   否
+dh____       固定              否                   是
+
+还有两种没测试
