@@ -93,7 +93,7 @@ class DHPhysics(GridPhysics):
                 battery_idx = battery_position.index(tuple(self.state.position))
                 # 充电时间+1
                 # NOTE 设为常数
-                # self.state.battery_list.batterys[battery_idx].charged_time += 1
+                self.state.battery_list.batterys[battery_idx].charged_time += 1
                 # self.state.battery_list.batterys[battery_idx].battery_flag = 1
                 self.charge_time += 1
 
