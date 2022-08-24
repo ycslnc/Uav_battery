@@ -87,7 +87,7 @@ class BaseEnvironment:
 
     def test_episode(self, scenario=None):
         state = copy.deepcopy(self.init_episode(scenario))
-        # print("初始电量为:", state.movement_budget)
+        print("初始电量为:", state.movement_budget)
         self.stats.on_episode_begin(self.episode_count)
         while not state.terminal:
             action = self.agent.get_exploitation_action_target(state)
@@ -95,9 +95,9 @@ class BaseEnvironment:
             reward = self.rewards.calculate_reward(state, GridActions(action), next_state)
             self.stats.add_experience((copy.deepcopy(state), action, reward, copy.deepcopy(next_state)))
             state = copy.deepcopy(next_state)
-        # print("中途充电电量为:", self.physics.charge_time * 4)
-        # print("消耗电量为:", self.physics.num_step)
-        # print("最后剩余电量为:", state.movement_budget)
+        print("中途充电电量为:", self.physics.charge_time * 4)
+        print("消耗电量为:", self.physics.num_step)
+        print("最后剩余电量为:", state.movement_budget)
         self.stats.on_episode_end(self.episode_count)
         self.stats.log_testing_data(step=self.step_count)
 
