@@ -87,7 +87,7 @@ class BaseEnvironment:
 
     def test_episode(self, scenario=None):
         state = copy.deepcopy(self.init_episode(scenario))
-        print("初始电量为:", state.movement_budget)
+        # print("初始电量为:", state.movement_budget)
         self.stats.on_episode_begin(self.episode_count)
         while not state.terminal:
             action = self.agent.get_exploitation_action_target(state)
@@ -98,7 +98,7 @@ class BaseEnvironment:
 
         self.stats.on_episode_end(self.episode_count)
         self.stats.log_testing_data(step=self.step_count)
-        print("最后剩余电量为:", state.movement_budget)
+        # print("最后剩余电量为:", state.movement_budget)
 
     def test_scenario(self, scenario):
         state = copy.deepcopy(self.init_episode(scenario))
