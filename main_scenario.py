@@ -51,7 +51,7 @@ def scenario(args, params):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', default='models/dh_battery_充电时battery_map不变化_best', required=False, help='Path to weights')
+    parser.add_argument('--weights', default='models/fixed_nochange_best', required=False, help='Path to weights')
     parser.add_argument('--config', default='config/88_dh_充电时battery_map不变化.json', required=False, help='Config file for agent '
                                                                                              'shaping')
     parser.add_argument('--scenario', default='example/scenarios/88_dh_battery.json', help='Config file for scenario')
