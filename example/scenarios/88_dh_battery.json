@@ -2,7 +2,7 @@
   "device_idcs": [19, 23, 44],
   "device_data": [15, 15, 20],
   "position_idx": 1,
-  "movement_budget": 25,
+  "movement_budget": 20,
   "battery_idcs": [7, 18, 20, 40]
 
 }

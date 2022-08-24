@@ -90,7 +90,7 @@ class DHPhysics(GridPhysics):
         if self.state.is_in_battery_zone():
             # 判断位置是否在设备上
             if tuple(self.state.position) in battery_position:
-                battery_idx = battery_position.index(tuple(self.state.position))
+                # battery_idx = battery_position.index(tuple(self.state.position))
                 # 充电时间+1
                 # NOTE 设为常数
                 # self.state.battery_list.batterys[battery_idx].charged_time += 1
@@ -105,7 +105,6 @@ class DHPhysics(GridPhysics):
         # NOTE 判断是否在充电区域，在充电区域的话，再计算具体冲了多少电, 要放在修改已充电时间后面
 
         self.state.set_terminal(self.charge_time >= 20)
-
 
     def get_example_action(self):
         return GridActions.HOVER
