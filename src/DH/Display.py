@@ -109,6 +109,11 @@ class DHDisplay(BaseDisplay):
                 patches.Circle(np.array(device.position) + np.array((0.5, 0.5)), 0.4, facecolor=device.color,
                                edgecolor="black"))
 
+        for battery in initial_state.battery_list.get_batterys():
+            ax_traj.add_patch(
+                patches.Ellipse(np.array(battery.position) + np.array((0.5, 0.5)), 0.4, 0.3, facecolor=battery.color,
+                                edgecolor="black"))
+
         color = "green" if state.landed else "r"
         plt.scatter(state.position[0] + 0.5, state.position[1] + 0.5,
                     s=self.marker_size, marker="D", color=color, zorder=10)
