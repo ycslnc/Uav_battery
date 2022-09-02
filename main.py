@@ -32,13 +32,13 @@ if __name__ == "__main__":
     parser.add_argument('--gpu', default=False, action='store_true', help='Activates usage of GPU')
     parser.add_argument('--generate_config', action='store_true', help='Enable to write default config only')
     parser.add_argument('--config', default='config/充电桩位置固定map变化.json', help='Path to config file')
-    parser.add_argument('--id', default='固定_变_1e6.json', help='If set overrides the logfile name and the save name')
+    parser.add_argument('--id', default='固定_变_增加总电量限制_5e5', help='If set overrides the logfile name and the save '
+                                                                 'name')
     parser.add_argument('--params', nargs='*', default=None)
     parser.add_argument('--cpp', action='store_true', help='Run Coverage Path Planning')
     parser.add_argument('--dh', default=True, action='store_true', help='Run Path Planning for Data Harvesting')
     parser.add_argument('--multi', action='store_true', help='Run Path Planning for Multi (So far only DH)')
 
-    parser.add_argument('--battery')
     args = parser.parse_args()
 
     if args.generate_config:
