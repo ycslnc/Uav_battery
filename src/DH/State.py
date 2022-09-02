@@ -40,6 +40,7 @@ class DHState(BaseState):
         self.initial_movement_budget = 0
         self.initial_total_data = 0
         self.collected = None
+        self.collide = False
 
     def set_landed(self, landed):
         self.landed = landed

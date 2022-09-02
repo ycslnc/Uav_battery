@@ -19,6 +19,7 @@ class DHRewards(GridRewards):
         self.reset()
 
     def calculate_reward(self, state: DHState, action: GridActions, next_state: DHState):
+        # 移动方面的reward
         reward = self.calculate_motion_rewards(state, action, next_state)
 
         # Reward the collected data

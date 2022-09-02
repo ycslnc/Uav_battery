@@ -20,19 +20,22 @@ class GridRewards:
 
     def calculate_motion_rewards(self, state, action: GridActions, next_state):
         reward = 0.0
+        # NOTE 任务未完成的惩罚  论文中的r_mov
         if not next_state.landed:
             # Penalize battery Consumption
             reward -= self.params.movement_penalty
-        # NOTE reward 把悬停的惩罚项去掉，因为充电需要悬停
+        # NOTE 没有移动的惩罚 这个可以试一下去掉
         # Penalize not moving (This happens when it either tries to land or fly into a boundary or hovers or fly into
         # a cell occupied by another agent)
-        if state.position == next_state.position and not next_state.landed and not action == GridActions.HOVER:
+        # NOTE r_sc  针对的情况是  此动作下一时刻要发生碰撞，所以重置为上一时刻的位置即悬停
+        # 未降落、动作不是悬停 但是前后位置一样（发生碰撞，重置了位置）
+        # NOTE 应该改为 发生碰撞给与惩罚，而悬停不给惩罚
+        # if state.position == next_state.position and not next_state.landed and not action == GridActions.HOVER:
+        if state.collide:
             reward -= self.params.boundary_penalty
 
-        # if not next_state.landed and not action == GridActions.HOVER:
-        #     reward -= self.params.boundary_penalty
-
         # Penalize battery dead
+        # NOTE 论文中的r_crash
         if next_state.movement_budget == 0 and not next_state.landed:
             reward -= self.params.empty_battery_penalty
 
