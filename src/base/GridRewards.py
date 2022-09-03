@@ -28,10 +28,10 @@ class GridRewards:
         # Penalize not moving (This happens when it either tries to land or fly into a boundary or hovers or fly into
         # a cell occupied by another agent)
         # NOTE r_sc  针对的情况是  此动作下一时刻要发生碰撞，所以重置为上一时刻的位置即悬停
-        # 未降落、动作不是悬停 但是前后位置一样（发生碰撞，重置了位置）
+        # 下一时刻未降落、动作不是悬停 但是前后位置一样（发生碰撞，重置了位置）
         # NOTE 应该改为 发生碰撞给与惩罚，而悬停不给惩罚
         # if state.position == next_state.position and not next_state.landed and not action == GridActions.HOVER:
-        if state.collide:
+        if next_state.collide:
             reward -= self.params.boundary_penalty
 
         # Penalize battery dead

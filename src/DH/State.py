@@ -48,6 +48,9 @@ class DHState(BaseState):
     def set_position(self, position):
         self.position = position
 
+    def set_collide(self, flag):
+        self.collide = flag
+
     def decrement_movement_budget(self):
         self.movement_budget -= 1
 

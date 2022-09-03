@@ -11,7 +11,7 @@ class GridPhysics:
 
     def movement_step(self, action: GridActions):
         # 每次移动都先设置碰撞标志位为 False
-        self.state.collide = False
+        self.state.set_collide(False)
         old_position = self.state.position
         x, y = old_position
 
@@ -33,7 +33,7 @@ class GridPhysics:
         if self.state.is_in_no_fly_zone():
             # Reset state
             # NOTE 如果发生碰撞，设置标志位
-            self.state.collide = True
+            self.state.set_collide(True)
             self.boundary_counter += 1
             x, y = old_position
             self.state.set_position([x, y])
