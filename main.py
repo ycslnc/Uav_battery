@@ -29,7 +29,7 @@ def main_dh_multi(p):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--gpu', default=False, action='store_true', help='Activates usage of GPU')
+    parser.add_argument('--gpu', default=True, action='store_true', help='Activates usage of GPU')
     parser.add_argument('--generate_config', action='store_true', help='Enable to write default config only')
     parser.add_argument('--config', default='config/充电桩位置固定map变化.json', help='Path to config file')
     parser.add_argument('--id', default='固定_变_增加总电量限制_5e5', help='If set overrides the logfile name and the save '
