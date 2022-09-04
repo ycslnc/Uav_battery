@@ -114,7 +114,6 @@ class DHPhysics(GridPhysics):
         # 总充电时长要有限制（不然训练的时候会一直卡在那里）
         self.state.set_terminal(self.charge_time >= 20)
 
-
     def get_example_action(self):
         return GridActions.HOVER
 
