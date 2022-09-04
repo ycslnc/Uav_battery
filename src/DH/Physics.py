@@ -97,13 +97,14 @@ class DHPhysics(GridPhysics):
                 # self.state.battery_list.batterys[battery_idx].battery_flag = 1
                 self.charge_time += 1
 
-                # 步数+5
-                self.state.increase_movement_budget()
+                if self.state.movement_budget + 4 <= self.state.initial_movement_budget:
+                    # 步数+4
+                    self.state.increase_movement_budget()
 
         # 在获取电池map之前更新充电情况
         self.state.battery_map = battery_list.get_battery_map(self.state.shape)
         # NOTE 判断是否在充电区域，在充电区域的话，再计算具体冲了多少电, 要放在修改已充电时间后面
-
+        # 总充电时长要有限制（不然训练的时候会一直卡在那里）
         self.state.set_terminal(self.charge_time >= 20)
 
 
