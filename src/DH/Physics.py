@@ -1,3 +1,5 @@
+import copy
+
 import numpy as np
 
 from src.DH.Channel import ChannelParams, Channel
@@ -43,6 +45,7 @@ class DHPhysics(GridPhysics):
         self.channel.reset(self.state.shape[0])
 
     def step(self, action: GridActions):
+        # print(self.state.initial_movement_budget)
         old_position = self.state.position
         self.movement_step(action)
         # 如果发生碰撞，那么碰撞次数+1 并且重置为上一时刻的位置
@@ -107,7 +110,7 @@ class DHPhysics(GridPhysics):
                     self.state.increase_movement_budget()
                 else:
                     # 如果电量要超过了，那么设置电量为最大电量，即充满后再怎么冲也不会超过电池容量
-                    self.state.movement_budget = self.state.initial_movement_budget
+                    self.state.movement_budget = copy.deepcopy(self.state.initial_movement_budget)
         # 在获取电池map之前更新充电情况
         self.state.battery_map = battery_list.get_battery_map(self.state.shape)
         # NOTE 判断是否在充电区域，在充电区域的话，再计算具体冲了多少电, 要放在修改已充电时间后面
