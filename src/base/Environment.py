@@ -90,6 +90,7 @@ class BaseEnvironment:
         print("初始电量为:", state.movement_budget)
         self.stats.on_episode_begin(self.episode_count)
         while not state.terminal:
+            print("当前电量为:", state.movement_budget)
             action = self.agent.get_exploitation_action_target(state)
             next_state = self.physics.step(GridActions(action))
             reward = self.rewards.calculate_reward(state, GridActions(action), next_state)

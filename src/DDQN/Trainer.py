@@ -13,7 +13,6 @@ class DDQNTrainerParams:
         self.rm_size = 50000
         self.load_model = ""
 
-# d3qn 充电桩
 class DDQNTrainer:
     def __init__(self, params: DDQNTrainerParams, agent: DDQNAgent):
         self.params = params

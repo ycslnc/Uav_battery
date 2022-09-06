@@ -1,3 +1,5 @@
+import copy
+
 import numpy as np
 
 from src.DH.Channel import ChannelParams, Channel
@@ -96,9 +98,11 @@ class DHPhysics(GridPhysics):
                 self.state.battery_list.batterys[battery_idx].charged_time += 1
                 # self.state.battery_list.batterys[battery_idx].battery_flag = 1
                 self.charge_time += 1
-
-                # 步数+5
-                self.state.increase_movement_budget()
+                if self.state.movement_budget + 4 <= self.state.initial_movement_budget:
+                    # 步数+4
+                    self.state.increase_movement_budget()
+                else:
+                    self.state.movement_budget = copy.deepcopy(self.state.initial_movement_budget)
 
         # 在获取电池map之前更新充电情况
         self.state.battery_map = battery_list.get_battery_map(self.state.shape)

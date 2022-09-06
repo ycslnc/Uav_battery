@@ -44,64 +44,101 @@ class DDQNAgent(object):
     def __init__(self, params: DDQNAgentParams, example_state, example_action, stats=None):
 
         self.params = params
+        # 折扣因子
         gamma = tf.constant(self.params.gamma, dtype=float)
         self.align_counter = 0
-
+        # 状态中的两个地图都已经中心化过了
         self.boolean_map_shape = example_state.get_boolean_map_shape()
         self.float_map_shape = example_state.get_float_map_shape()
+        # 剩余电量
         self.scalars = example_state.get_num_scalars()
+        # 动作数量
         self.num_actions = len(type(example_action))
+        # 总通道数
         self.num_map_channels = self.boolean_map_shape[2] + self.float_map_shape[2]
 
         # Create shared inputs
+        # 输入
         boolean_map_input = Input(shape=self.boolean_map_shape, name='boolean_map_input', dtype=tf.bool)
         float_map_input = Input(shape=self.float_map_shape, name='float_map_input', dtype=tf.float32)
         scalars_input = Input(shape=(self.scalars,), name='scalars_input', dtype=tf.float32)
         action_input = Input(shape=(), name='action_input', dtype=tf.int64)
         reward_input = Input(shape=(), name='reward_input', dtype=tf.float32)
         termination_input = Input(shape=(), name='termination_input', dtype=tf.bool)
+        # NOTE 还没弄清楚这个用来干啥
         q_star_input = Input(shape=(), name='q_star_input', dtype=tf.float32)
+        # 环境地图+设备地图+电量
         states = [boolean_map_input,
                   float_map_input,
                   scalars_input]
-        # 环境地图+设备地图+电量
-        map_cast = tf.cast(boolean_map_input, dtype=tf.float32)
+
         # 将x的数据格式转化成dtype数据类型.例如，原来x的数据格式是bool，
         # 将其转化成float以后，就能够将其转化成0和1的序列。
-        padded_map = tf.concat([map_cast, float_map_input], axis=3)
-        # 填充后的地图
-        # 把环境地图 + 设备地图 在第三个维度拼接-     维度越高，括号越小
+        map_cast = tf.cast(boolean_map_input, dtype=tf.float32)
 
+        # 中心化后的地图
+        # 把环境地图 + 设备地图 在第三个维度拼接-     维度越高，括号越小
+        padded_map = tf.concat([map_cast, float_map_input], axis=3)
+
+        # Q网络
         self.q_network = self.build_model(padded_map, scalars_input, states)
+        # 目标网络
         self.target_network = self.build_model(padded_map, scalars_input, states, 'target_')
         # build_model  卷积+隐藏
         self.hard_update()
         # 硬更新、复制参数
 
+        # 如果用到了全局+局部地图
         if self.params.use_global_local:
+            # 全局地图模型
             self.global_map_model = Model(inputs=[boolean_map_input, float_map_input],
                                           outputs=self.global_map)
+            # 局部地图模型
             self.local_map_model = Model(inputs=[boolean_map_input, float_map_input],
                                          outputs=self.local_map)
+            # 总地图模型
             self.total_map_model = Model(inputs=[boolean_map_input, float_map_input],
                                          outputs=self.total_map)
 
+        # Q值
         q_values = self.q_network.output
+        # 目标值
         q_target_values = self.target_network.output
 
         # Define Q* in min(Q - (r + gamma_terminated * Q*))^2
+
+        # 从当前网络中选取使Q值最大的动作 NOTE 然后用这个动作去计算目标网络中此动作对应的Q值
         max_action = tf.argmax(q_values, axis=1, name='max_action', output_type=tf.int64)
+        # 从目标网络中选取使得Q值最大的动作   NOTE 用到了吗？
         max_action_target = tf.argmax(q_target_values, axis=1, name='max_action', output_type=tf.int64)
+
+        # 此动作对应的one_hot编码
         one_hot_max_action = tf.one_hot(max_action, depth=self.num_actions, dtype=float)
+
+        # tf.reduce_sum()  按一定方式计算张量中元素之和，axis指定按哪个维度进行加和，默认将所有元素进行加和；默认保持原来维度
+        # tf.multiply()    将两个矩阵中对应元素各自相乘
+        # NOTE q_star 是啥？  是能使当前Q网络值最大的动作 乘 one_hot 编码？？？
         q_star = tf.reduce_sum(tf.multiply(one_hot_max_action, q_target_values, name='mul_hot_target'), axis=1,
                                name='q_star')
         self.q_star_model = Model(inputs=states, outputs=q_star)
 
-        # Define Bellman loss
+        # Define Bellman loss 定义贝尔曼损失
+        # NOTE one_hot编码 输入的动作
         one_hot_rm_action = tf.one_hot(action_input, depth=self.num_actions, on_value=1.0, off_value=0.0, dtype=float)
+        # NOTE one_cold编码 输入的动作
         one_cold_rm_action = tf.one_hot(action_input, depth=self.num_actions, on_value=0.0, off_value=1.0, dtype=float)
+        # NOTE 不知道为什么要用两种编码？   one_cold是one_hot反过来
+
+        # 旧的Q值  而且停止追踪梯度，即不需要反向传播
         q_old = tf.stop_gradient(tf.multiply(q_values, one_cold_rm_action))
+
+        # gamma是折扣因子 termination_input 是是否终止的标志
+        # tf.math.logical_not 逻辑非 对termination_input 取反
+        # tf.cast   将bool类型转为float32类型  然后再用折扣因子乘转换后的数据
+        # NOTE 目前理解  如果当前结束了，那么termination_input就是True，转换后变成False，再变成0，再乘折扣因子还是0
+        #  如果没结束，那么termination_input就是False，转换后变成True，再变成1，再乘折扣因子，那就是gamma
         gamma_terminated = tf.multiply(tf.cast(tf.math.logical_not(termination_input), tf.float32), gamma)
+
         q_update = tf.expand_dims(tf.add(reward_input, tf.multiply(q_star_input, gamma_terminated)), 1)
         q_update_hot = tf.multiply(q_update, one_hot_rm_action)
         q_new = tf.add(q_update_hot, q_old)
