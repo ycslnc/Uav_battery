@@ -64,7 +64,8 @@ def cpp_mc(args, params: CPPEnvironmentParams):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', default="models/测试_best", required=False, help='Path to weights')
-    parser.add_argument('--config', default='config/充电桩位置固定map变化.json', required=False, help='Config file for agent shaping')
+    parser.add_argument('--config', default='config/充电桩位置固定map变化.json', required=False, help='Config file for agent '
+                                                                                             'shaping')
     parser.add_argument('--id', default='test_测试2', required=False, help='Id for exported files')
     parser.add_argument('--samples', default=100, required=False, help='Id for exported files')
     parser.add_argument('--seed', default=None, help="Seed for repeatability")
