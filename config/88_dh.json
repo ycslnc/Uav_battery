@@ -7,8 +7,8 @@
     },
     "grid_params": {
         "movement_range": [
-            15,
-            25
+            10,
+            35
         ],
         "map_path": "res/88.png",
         "device_manager": {
