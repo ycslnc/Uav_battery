@@ -63,10 +63,11 @@ def cpp_mc(args, params: CPPEnvironmentParams):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', required=True, help='Path to weights')
-    parser.add_argument('--config', default='config/88_dh.json', required=True, help='Config file for agent shaping')
-    parser.add_argument('--id', default='test2_dh_mc', required=True, help='Id for exported files')
-    parser.add_argument('--samples', default=1000, required=True, help='Id for exported files')
+    parser.add_argument('--weights', default="models/测试2e6_unfinished", required=False, help='Path to weights')
+    parser.add_argument('--config', default='config/充电桩位置固定map变化.json', required=False, help='Config file for agent '
+                                                                                              'shaping')
+    parser.add_argument('--id', default='测试2e6_2', required=False, help='Id for exported files')
+    parser.add_argument('--samples', default=1000, required=False, help='Id for exported files')
     parser.add_argument('--seed', default=None, help="Seed for repeatability")
     parser.add_argument('--show', default=False, help="Show individual plots, allows saving")
     parser.add_argument('--params', nargs='*', default=None)
