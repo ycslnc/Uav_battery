@@ -1,14 +1,14 @@
 {
     "model_stats_params": {
         "save_model": "models/88_dh",
-        "moving_average_length": 100,
+        "moving_average_length": 80,
         "log_file_name": "88_dh",
         "training_images": false
     },
     "grid_params": {
         "movement_range": [
             10,
-            100
+            60
         ],
         "map_path": "res/88.png",
         "device_manager": {
