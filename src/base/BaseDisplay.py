@@ -4,7 +4,10 @@ from tqdm import tqdm
 
 from src.Map.Map import Map
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 from skimage.color import rgb2hsv, hsv2rgb
 from matplotlib import patches
 import cv2

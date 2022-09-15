@@ -220,25 +220,6 @@ class DDQNAgent(object):
         model = Model(inputs=inputs, outputs=output)
         return model
 
-    def build_dueling_model(self, map_proc, states_proc, inputs, name=''):
-        # NOTE 输入的map是中心化处理过后的
-        #  状态也是中心化的
-        #  对输入的图像进行局部和全局处理，通过所有卷积层，提取出特征，张成1维的特征向量并且拼接
-        flatten_map = self.create_map_proc(map_proc, name)
-        # NOTE 一维的特征向量和电量拼接到一起  合并输入
-        layer = Concatenate(name=name + 'concat')([flatten_map, states_proc])
-        # NOTE 分别通过全连接层，输出维度是动作的个数
-        for k in range(self.params.hidden_layer_num):
-            layer = Dense(self.params.hidden_layer_size, activation='relu', name=name + 'hidden_layer_all_' + str(k))(
-                layer)
-
-        # 添加另外两层特殊的结构
-        output = Dense(self.num_actions, activation='linear', name=name + 'output_layer')(layer)
-        # 全连接层
-
-        model = Model(inputs=inputs, outputs=output)
-        return model
-
     def create_map_proc(self, conv_in, name):
         # 如果用到了全局和局部地图
         if self.params.use_global_local:
