@@ -63,12 +63,12 @@ def cpp_mc(args, params: CPPEnvironmentParams):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', default="models/D3QN2_unfinished", required=False, help='Path to weights')
+    parser.add_argument('--weights', default="models/测试2e6DDQN2_best", required=False, help='Path to weights')
     parser.add_argument('--config', default='config/充电桩位置固定map变化.json', required=False, help='Config file for agent '
                                                                                               'shaping')
-    parser.add_argument('--id', default='D3QN', required=False, help='Id for exported files')
+    parser.add_argument('--id', default='DDQN1_mc', required=False, help='Id for exported files')
     parser.add_argument('--samples', default=1000, required=False, help='Id for exported files')
-    parser.add_argument('--seed', default=0, help="Seed for repeatability")
+    parser.add_argument('--seed', default=None, help="Seed for repeatability")
     parser.add_argument('--show', default=False, help="Show individual plots, allows saving")
     parser.add_argument('--params', nargs='*', default=None)
 

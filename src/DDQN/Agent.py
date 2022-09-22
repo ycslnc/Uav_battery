@@ -207,14 +207,14 @@ class DDQNAgent(object):
 
         # TODO 添加价值网络
         # 价值网络输出
-        V_s_value = Dense(1, name=name+'prediction_v_value')(layer)
-        # TODO 添加优势网络
+        # V_s_value = Dense(1, name=name+'prediction_v_value')(layer)
+        # # TODO 添加优势网络
         # 优势网络输出
-        A_s_a = Dense(self.num_actions, name=name+'prediction_A_s_a')(layer)
+        # A_s_a = Dense(self.num_actions, name=name+'prediction_A_s_a')(layer)
 
         # NOTE 对优势网络求平均，再相减,再加上价值网络，得到最后的输出
-        output = V_s_value + A_s_a - tf.reduce_mean(A_s_a, axis=1, keepdims=True)
-        # output = Dense(self.num_actions, activation='linear', name=name + 'output_layer')(layer)
+        # output = V_s_value + A_s_a - tf.reduce_mean(A_s_a, axis=1, keepdims=True)
+        output = Dense(self.num_actions, activation='linear', name=name + 'output_layer')(layer)
         # 全连接层
 
         model = Model(inputs=inputs, outputs=output)
