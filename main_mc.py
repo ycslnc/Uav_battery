@@ -66,7 +66,7 @@ if __name__ == "__main__":
     parser.add_argument('--weights', default="models/origin_dh_2e6_1060_unfinished", required=False, help='Path to weights')
     parser.add_argument('--config', default='config/88_dh.json', required=False, help='Config file for agent shaping')
     parser.add_argument('--id', default='DDQN_original_2e6', required=False, help='Id for exported files')
-    parser.add_argument('--samples', default=1000, required=False, help='Id for exported files')
+    parser.add_argument('--samples', default=100, required=False, help='Id for exported files')
     parser.add_argument('--seed', default=None, help="Seed for repeatability")
     parser.add_argument('--show', default=False, help="Show individual plots, allows saving")
     parser.add_argument('--params', nargs='*', default=None)
